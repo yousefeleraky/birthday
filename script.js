@@ -24,13 +24,13 @@ function startGame() {
         giftPositions.length = 0;
         startButton.disabled = true;
 
-        // Generate random gift positions (5 gifts)
+        // Random gift positions
         while (giftPositions.length < 5) {
             const pos = Math.floor(Math.random() * gridSize);
             if (!giftPositions.includes(pos)) giftPositions.push(pos);
         }
 
-        // Create the grid
+        // Create grid
         for (let i = 0; i < gridSize; i++) {
             const box = document.createElement('div');
             box.classList.add('box');
@@ -49,10 +49,10 @@ function revealBox(index, box) {
 
     if (giftPositions.includes(index)) {
         giftsFound++;
-        box.textContent = '🎁';
+        box.innerHTML = '🎁';
         giftCountDisplay.textContent = giftsFound;
     } else {
-        box.textContent = Math.random() > 0.5 ? '🎉' : '✨'; // Random surprise
+        box.textContent = Math.random() > 0.5 ? '😜' : '😂'; // Random fun
     }
 
     if (giftsFound >= 5) {
@@ -66,37 +66,37 @@ function endGame(won) {
     gameStarted = false;
     startButton.disabled = false;
     if (won) {
-        resultDisplay.textContent = 'كل سنة وإنتِ طيبة يا روان! 🎂🎁';
+        resultDisplay.textContent = 'كل سنة وانتي طيبة يا روان، عيد ميلادك يهبل! 🎉🎂';
         resultDisplay.style.color = '#ff1493';
-        celebrate();
+        partyTime();
     } else {
-        resultDisplay.textContent = 'للأسف، المحاولات خلّصت! جربي تاني!';
+        resultDisplay.textContent = 'ياااه، الكليكات خلّصت! جربي تاني يا ست الكل';
         resultDisplay.style.color = '#ff0000';
     }
 }
 
-function celebrate() {
-    for (let i = 0; i < 10; i++) {
+function partyTime() {
+    for (let i = 0; i < 15; i++) {
         setTimeout(() => {
             const confetti = document.createElement('div');
-            confetti.textContent = '🎉';
+            confetti.textContent = Math.random() > 0.5 ? '🎉' : '✨';
             confetti.style.position = 'absolute';
-            confetti.style.fontSize = '20px';
+            confetti.style.fontSize = '25px';
             confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.top = '-10px';
-            confetti.style.animation = 'fall 2s linear';
+            confetti.style.top = '-20px';
+            confetti.style.color = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+            confetti.style.animation = 'fall 3s linear';
             document.body.appendChild(confetti);
-            setTimeout(() => confetti.remove(), 2000);
-        }, i * 200);
+            setTimeout(() => confetti.remove(), 3000);
+        }, i * 150);
     }
 }
 
-// Add falling animation for confetti
 const styleSheet = document.createElement('style');
 styleSheet.textContent = `
     @keyframes fall {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(100vh); }
+        0% { transform: translateY(0) rotate(0deg); }
+        100% { transform: translateY(100vh) rotate(360deg); }
     }
 `;
 document.head.appendChild(styleSheet);
